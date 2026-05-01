@@ -12,7 +12,7 @@ pipeline {
             steps {
                 git branch: 'main',
                 credentialsId: 'github-creds',
-                url: 'https://github.com/your-repo.git'
+                url: 'hhttps://github.com/KrishnaPrabhuSampathu/React-APP.git'
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
         stage('Tag Image') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'master') {
+                    if (env.BRANCH_NAME == 'main') {
                         sh "docker tag myapp $PROD_IMAGE"
                     } else {
                         sh "docker tag myapp $DEV_IMAGE"
@@ -55,7 +55,7 @@ pipeline {
                     sh "echo $PASS | docker login -u $USER --password-stdin"
 
                     script {
-                        if (env.BRANCH_NAME == 'master') {
+                        if (env.BRANCH_NAME == 'main') {
                             sh "docker push $PROD_IMAGE"
                         } else {
                             sh "docker push $DEV_IMAGE"
@@ -68,11 +68,11 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 script {
-                    def image = (env.BRANCH_NAME == 'master') ? PROD_IMAGE : DEV_IMAGE
+                    def image = (env.BRANCH_NAME == 'main') ? PROD_IMAGE : DEV_IMAGE
 
                     sshagent(['ec2-ssh']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@<EC2-IP> '
+                        ssh -o StrictHostKeyChecking=no ubuntu@ip-172-31-38-82'
                         docker pull ${image} &&
                         docker stop react-app || true &&
                         docker rm react-app || true &&
