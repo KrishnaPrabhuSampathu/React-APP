@@ -76,10 +76,10 @@ pipeline {
                     sshagent(['ec2-ssh']) {
                         sh """
                         ssh ubuntu@54.198.109.5 '
-                        docker pull ${image} &&
-                        docker stop react-app || true &&
-                        docker rm react-app || true &&
-                        docker run -d -p 80:80 --name react-app ${image}
+                        sudo docker pull ${image} &&
+                        sudo docker stop react-app || true &&
+                        sudo docker rm react-app || true &&
+                        sudo docker run -d -p 80:80 --name react-app ${image}
                         '
                         """
                     }
