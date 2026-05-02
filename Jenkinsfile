@@ -12,7 +12,7 @@ pipeline {
             steps {
                 git branch: 'main',
                 credentialsId: 'github-creds',
-                url: 'hhttps://github.com/KrishnaPrabhuSampathu/React-APP.git'
+                url: 'https://github.com/KrishnaPrabhuSampathu/React-APP.git'
             }
         }
 
