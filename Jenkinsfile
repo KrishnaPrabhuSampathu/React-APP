@@ -76,7 +76,6 @@ pipeline {
                     sshagent(['ec2-ssh']) {
                         sh """
                         ssh ubuntu@54.198.109.5 '
-                        newgrp docker &&
                         docker pull ${image} &&
                         docker stop react-app || true &&
                         docker rm react-app || true &&
