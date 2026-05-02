@@ -72,7 +72,7 @@ pipeline {
 
                     sshagent(['ec2-ssh']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@ip-172-31-38-82'
+                        ssh -o StrictHostKeyChecking=no ubuntu@54.198.109.5 '
                         docker pull ${image} &&
                         docker stop react-app || true &&
                         docker rm react-app || true &&
