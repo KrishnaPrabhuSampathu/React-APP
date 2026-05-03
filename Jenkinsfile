@@ -210,21 +210,27 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 script {
+
+                    def image = (env.BRANCH_NAME == 'main')
+                        ? "krishnaprabhu616/prod:latest"
+                        : "krishnaprabhu616/dev:latest"
+
                     def composeFile = (env.BRANCH_NAME == 'main')
-                        ? 'docker-compose.prod.yml'
-                        : 'docker-compose.dev.yml'
+                        ? "docker-compose.prod.yml"
+                        : "docker-compose.dev.yml"
 
                     sshagent(['ec2-ssh']) {
                         sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.222.194.219 '
-                                sudo docker pull ${image} &&
-                                sudo docker compose -f ${composeFile} down || true &&
-                                sudo docker compose -f ${composeFile} up -d --build
+                                docker pull ${image} &&
+                                cd /home/ubuntu &&
+                                docker compose -f ${composeFile} down || true &&
+                                docker compose -f ${composeFile} up -d
                             '
                         """
                     }
                 }
             }
-        }             
+        }         
     }
 }
