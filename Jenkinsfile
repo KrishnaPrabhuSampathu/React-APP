@@ -217,7 +217,7 @@ pipeline {
                     sshagent(['ec2-ssh']) {
                         sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.222.194.219 '
-                                sudo docker pull krishnaprabhu616/react-app:latest &&
+                                sudo docker pull ${image} &&
                                 sudo docker compose -f ${composeFile} down || true &&
                                 sudo docker compose -f ${composeFile} up -d --build
                             '
