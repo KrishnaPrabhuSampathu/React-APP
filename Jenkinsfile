@@ -68,6 +68,55 @@ pipeline {
             }
         }
 
+        // stage('Push to DockerHub') {
+        //     when {
+        //         anyOf {
+        //             branch 'dev'
+        //             branch 'main'   
+        //         }
+        //     }
+        //     steps {
+        //         withCredentials([usernamePassword(
+        //             credentialsId: 'dockerhub-creds',
+        //             usernameVariable: 'DOCKERHUB_USER',
+        //             passwordVariable: 'DOCKERHUB_PASS'
+        //         )]) {
+
+        //             sh '''
+        //                 echo "$DOCKERHUB_PASS" | docker login \
+        //                     -u "$DOCKERHUB_USER" \
+        //                     --password-stdin
+        //             '''
+
+        //             script {
+        //                 if (env.BRANCH_NAME == 'dev') {
+        //                     echo "Pushing development image to Docker Hub DEV repository..."
+        //                     sh """
+        //                         docker tag ${APP_IMAGE}:${BUILD_NUMBER} ${DEV_IMAGE}:${BUILD_NUMBER}
+        //                         docker tag ${APP_IMAGE}:${BUILD_NUMBER} ${DEV_IMAGE}:latest
+        //                         docker push ${DEV_IMAGE}:${BUILD_NUMBER}
+        //                         docker push ${DEV_IMAGE}:latest
+        //                     """
+        //                 }
+        //                 else if (env.BRANCH_NAME == 'main') { 
+        //                     echo "Pushing production image to Docker Hub PROD repository..."
+        //                     sh """
+        //                         docker tag ${APP_IMAGE}:${BUILD_NUMBER} ${PROD_IMAGE}:${BUILD_NUMBER}
+        //                         docker tag ${APP_IMAGE}:${BUILD_NUMBER} ${PROD_IMAGE}:latest
+        //                         docker push ${PROD_IMAGE}:${BUILD_NUMBER}
+        //                         docker push ${PROD_IMAGE}:latest
+        //                     """
+        //                 }
+        //                 else {
+        //                     echo "Branch ${env.BRANCH_NAME} is not configured for Docker push."
+        //                 }
+        //             }
+
+        //             sh 'docker logout'
+        //         }
+        //     }
+        // }        
+
         stage('Deploy to EC2') {
             steps {
                 script {
