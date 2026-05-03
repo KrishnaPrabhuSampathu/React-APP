@@ -124,7 +124,7 @@ pipeline {
 
                     sshagent(['ec2-ssh']) {
                         sh """
-                        ssh ubuntu@54.198.109.5 '
+                        ssh ubuntu@13.222.194.219 '
                         sudo docker pull ${image} &&
                         sudo docker stop react-app || true &&
                         sudo docker rm react-app || true &&
