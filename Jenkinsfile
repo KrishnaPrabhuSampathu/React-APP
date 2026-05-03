@@ -117,6 +117,24 @@ pipeline {
         //     }
         // }        
 
+        // stage('Deploy to EC2') {
+        //     steps {
+        //         script {
+        //             def image = (env.BRANCH_NAME == 'main') ? PROD_IMAGE : DEV_IMAGE
+
+        //             sshagent(['ec2-ssh']) {
+        //                 sh """
+        //                 ssh ubuntu@13.222.194.219 '
+        //                 sudo docker pull ${image} &&
+        //                 sudo docker stop react-app || true &&
+        //                 sudo docker rm react-app || true &&
+        //                 sudo docker run -d -p 80:80 --name react-app ${image}
+        //                 '
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
         stage('Deploy to EC2') {
             steps {
                 script {
@@ -124,16 +142,16 @@ pipeline {
 
                     sshagent(['ec2-ssh']) {
                         sh """
-                        ssh ubuntu@13.222.194.219 '
-                        sudo docker pull ${image} &&
-                        sudo docker stop react-app || true &&
-                        sudo docker rm react-app || true &&
-                        sudo docker run -d -p 80:80 --name react-app ${image}
-                        '
+                            ssh -o StrictHostKeyChecking=no ubuntu@13.222.194.219 '
+                                sudo docker pull ${image} &&
+                                sudo docker stop react-app || true &&
+                                sudo docker rm react-app || true &&
+                                sudo docker run -d -p 80:80 --name react-app ${image}
+                            '
                         """
                     }
                 }
             }
-        }
+        }        
     }
 }
