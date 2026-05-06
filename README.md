@@ -75,7 +75,7 @@ After building the image, it was pushed to Docker Hub for centralized storage an
 On the application server, the Docker image was pulled and run.
 
 
-6. Setup Monitoring with Uptime Kuma
+6. Setup Monitoring with Uptime Kuma monitor
 Configured Uptime Kuma to monitor application uptime and availability.
     Installed Uptime Kuma
     Added application URL as a monitoring Endpoint
