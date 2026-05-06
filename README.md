@@ -78,7 +78,7 @@ On the application server, the Docker image was pulled and run.
 6. Setup Monitoring with Uptime Kuma
 Configured Uptime Kuma to monitor application uptime and availability.
     Installed Uptime Kuma
-    Added application URL as a monitoring endpoint
+    Added application URL as a monitoring Endpoint
     Configured alerts for downtime notifications
 
 This ensures continuous monitoring of application health and availability.
